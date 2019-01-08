@@ -16,6 +16,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <lvc:CartesianChart x:Name="uiChart" Grid.Row="0" Series="{Binding}" AxisY="{Binding}"/>
+        <lvc:CartesianChart x:Name="uiChart" Grid.Row="0" Series="{Binding}" AxisY="{Binding}" DisableAnimations="True"/>
     </Grid>
 </UserControl>
