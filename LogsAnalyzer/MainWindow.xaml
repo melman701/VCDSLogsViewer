@@ -29,6 +29,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <lvc:CartesianChart x:Name="uiChart" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Series="{Binding}" DisableAnimations="True"/>
+        <!--<lvc:CartesianChart x:Name="uiChart" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Series="{Binding}" DisableAnimations="True"/>-->
+        <local:ChartControl x:Name="uiChartControl" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

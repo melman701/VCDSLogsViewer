@@ -40,20 +40,49 @@ namespace VCDSLogsViewer
 
         private void UiButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
+            List<string> units = new List<string>();
             SeriesCollection charts = new SeriesCollection();
             foreach (var chartData in chartDatas)
             {
                 if (chartData.IsChecked)
                 {
-                    charts.Add(new GLineSeries()
+                    var i = units.FindIndex(x => x.Equals(chartData.Value.Units));
+                    if (i == -1)
+                    {
+                        units.Add(chartData.Value.Units);
+                        i = units.Count - 1;
+                    }
+                    var chart = new GLineSeries()
                     {
                         Values = new ChartValues<float>(chartData.Value.Data.Select(x => x.Item2).ToList()),
-                        //DataLabels = false,
+                        DataLabels = false,
                         LineSmoothness = 0,
-                    });
+                        ScalesYAt = i,
+                    };
+                    charts.Add(chart);
                 }
             }
-            uiChart.Series = charts;
+            uiChartControl.uiChart.Series = charts;
+
+            AxesCollection axes = new AxesCollection();
+            AxisPosition pos = AxisPosition.LeftBottom;
+            int colorIndex = 0;
+            foreach (var unit in units)
+            {
+                axes.Add(new Axis
+                {
+                    Title = unit,
+                    Position = pos,
+                    ShowLabels = true,
+                    Foreground = new SolidColorBrush(CartesianChart.Colors[colorIndex]),
+                });
+                if (pos == AxisPosition.LeftBottom)
+                {
+                    pos = AxisPosition.RightTop;
+                }
+                colorIndex++;
+            }
+            uiChartControl.uiChart.AxisY = axes;
         }
 
         private void UiButtonSelectFile_Click(object sender, RoutedEventArgs e)
